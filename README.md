@@ -1,6 +1,6 @@
 # Next JS users administration dashboard
 
-Used list virtualizacion with react-window to improve performance in large list of data
+Used list virtualization with react-window to improve performance in a large list of data
 
 ## Demo:
 
