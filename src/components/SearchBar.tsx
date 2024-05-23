@@ -12,17 +12,6 @@ export const SearchBar = ({ onSearch, placeholder, time = 300 }: SeachBarProps) 
   const [query, setQuery] = useState('');
   let timeoutId: NodeJS.Timeout | null = null;
 
-  const throttledSearch = (newQuery: string) => {
-    if (timeoutId) {
-      clearTimeout(timeoutId);
-    }
-
-    timeoutId = setTimeout(() => {
-      console.log('filtered');
-      onSearch(newQuery);
-    }, time);
-  };
-
   return (
     <div className='flex bg-white h-10'>
       <div className='px-3'>
@@ -36,7 +25,14 @@ export const SearchBar = ({ onSearch, placeholder, time = 300 }: SeachBarProps) 
         value={query}
         onChange={(event: ChangeEvent<HTMLInputElement>) => {
           setQuery(event.target.value);
-          throttledSearch(event.target.value);
+
+          if (timeoutId) {
+            clearTimeout(timeoutId);
+          }
+      
+          timeoutId = setTimeout(() => {
+            onSearch(event.target.value);
+          }, time);
         }}
       />
     </div>
